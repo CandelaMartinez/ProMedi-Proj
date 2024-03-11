@@ -2,8 +2,9 @@ using Microsoft.AspNetCore.Mvc;
 using ProMedi.Models;
 using System.Diagnostics;
 
-namespace ProMedi.Controllers
+namespace ProMedi.Areas.Cliente.Controllers
 {
+    [Area("Cliente")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
