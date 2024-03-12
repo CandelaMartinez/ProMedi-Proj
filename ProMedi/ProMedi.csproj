@@ -20,4 +20,8 @@
     <Folder Include="Areas\Admin\Controllers\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ProMedi.AccesoDatos\ProMedi.AccesoDatos.csproj" />
+  </ItemGroup>
+
 </Project>

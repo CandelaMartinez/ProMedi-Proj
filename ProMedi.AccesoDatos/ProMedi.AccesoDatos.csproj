@@ -16,4 +16,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ProMedi.Models\ProMedi.Models.csproj" />
+    <ProjectReference Include="..\ProMedi.Utilidades\ProMedi.Utilidades.csproj" />
+  </ItemGroup>
+
 </Project>
