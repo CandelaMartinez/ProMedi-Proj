@@ -19,7 +19,14 @@ namespace ProMedi.Areas.Admin.Controllers
             return View();
         }
 
-        //POST: trae informacion de un formulario
+        //POST: trae informacion de un formulario para crear nueva categoria
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+
         #region Llamadas a la API
         [HttpGet]
         public IActionResult GetAll()
