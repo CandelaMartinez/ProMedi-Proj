@@ -10,7 +10,7 @@ namespace ProMedi.AccesoDatos.Data.Repository.IRepository
     public interface ICategoriaRepository : IRepository<Categoria>
     {
         void Update(Categoria categoria);
-        //IEnumerable<SelectListItem> GetListaCategorias();
+        
 
     }
 }
