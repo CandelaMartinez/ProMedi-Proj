@@ -4,11 +4,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using ProMedi.Data;
+using ProMedi.AccesoDatos.Data;
+
 
 #nullable disable
 
-namespace ProMedi.Data.Migrations
+namespace ProMedi.AccesoDatos.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
