@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using ProMedi.Models;
 
 namespace ProMedi.AccesoDatos.Data
 {
@@ -9,5 +10,8 @@ namespace ProMedi.AccesoDatos.Data
             : base(options)
         {
         }
+
+        //agregar todos los modelos para que se creen la tablas con las migraciones
+        public DbSet<Categoria> Categorias { get; set; }
     }
 }
