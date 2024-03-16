@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace ProMedi.Data
+namespace ProMedi.AccesoDatos.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
