@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProMedi.AccesoDatos.Data.Repository.IRepository;
+using ProMedi.Models.ViewModels;
 
 namespace ProMedi.Areas.Admin.Controllers
 {
@@ -22,7 +23,13 @@ namespace ProMedi.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            return View();
+            PublicacionViewModel publicacionVM = new PublicacionViewModel()
+            {
+                Publicacion = new ProMedi.Models.Publicacion(),
+                ListaCategorias = _unitOfWork.Categoria.GetListaCategorias()
+            };
+
+            return View(publicacionVM);
         }
 
         #region Llamadas a la API

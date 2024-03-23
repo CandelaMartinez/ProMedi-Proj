@@ -1,4 +1,4 @@
-﻿@model ProMedi.Models.Publicacion
+﻿@model ProMedi.Models.ViewModels.PublicacionViewModel
 @{
     ViewData["Title"] = "Crear Publicacion";
 }
@@ -13,11 +13,11 @@
         <div class="col-10 offset-1 mt-4">
             <div class="form-group row">
                 <div class="col-4">
-                    <label asp-for="Nombre"></label>
+                    <label asp-for="Publicacion.Nombre"></label>
                 </div>
                 <div class="col-8">
-                    <input asp-for="Nombre" class="form-control" placeholder="Ingresa el nombre" />
-                    <span asp-validation-for="Nombre" class="text-danger"></span>
+                    <input asp-for="Publicacion.Nombre" class="form-control" placeholder="Ingresa el nombre" />
+                    <span asp-validation-for="Publicacion.Nombre" class="text-danger"></span>
                 </div>
             </div>
             <br />
@@ -25,16 +25,27 @@
 
             <div class="form-group row">
                 <div class="col-4">
-                    <label asp-for="Descripcion"></label>
+                    <label asp-for="Publicacion.Descripcion"></label>
                 </div>
                 <div class="col-8">
-                    <input asp-for="Descripcion" class="form-control" placeholder="Ingresa una Descripcion" />
-                    <span asp-validation-for="Descripcion" class="text-danger"></span>
+                    <input asp-for="Publicacion.Descripcion" class="form-control" placeholder="Ingresa una Descripcion" />
+                    <span asp-validation-for="Publicacion.Descripcion" class="text-danger"></span>
                 </div>
             </div>
 
             <br />
 
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Publicacion.Categoria"></label>
+                </div>
+                <div class="col-8">
+                    @Html.DropDownListFor(x => x.Publicacion.CategoriaId, Model.ListaCategorias, "-selecciones una categoria-"
+                    , new {@class = "form-control"})
+                    <span asp-validation-for="Publicacion.CategoriaId" class="text-danger"></span>
+                </div>
+            </div>
+            <br />
             <div class="form-group-row">
                 <div class="col-8">
                     <partial name="_VistaCrearVolver" />

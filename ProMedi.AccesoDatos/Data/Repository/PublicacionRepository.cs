@@ -23,6 +23,7 @@ namespace ProMedi.AccesoDatos.Data.Repository
             objToUpdate.Descripcion = publicacion.Descripcion;
             objToUpdate.FechaCreacion = publicacion.FechaCreacion;
             objToUpdate.UrlImagen = publicacion.UrlImagen;
+            objToUpdate.CategoriaId = publicacion.CategoriaId;
 
            // _context.SaveChanges();
 
