@@ -1,4 +1,5 @@
 ﻿using ProMedi.AccesoDatos.Data.Repository.IRepository;
+using ProMedi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,9 +17,13 @@ namespace ProMedi.AccesoDatos.Data.Repository
         {
             _context = context;
             Categoria = new CategoriaRepository(context);
+            Publicacion = new PublicacionRepository(context);
         }
 
         public ICategoriaRepository Categoria { get; private set; }
+        public IPublicacionRepository Publicacion { get; private set; }
+
+       
 
         public void Dispose()
         {
