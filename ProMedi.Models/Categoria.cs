@@ -15,7 +15,7 @@ namespace ProMedi.Models
         [Required(ErrorMessage ="Ingrese el nombre de la categoria")]
         [Display(Name ="Nombre de la categoria")]
         public string Name { get; set; }
-
+        [Range(1,100, ErrorMessage = "El valor debe ser entre 1 y 100")]
         public int? Orden { get; set;}
     }
 }
