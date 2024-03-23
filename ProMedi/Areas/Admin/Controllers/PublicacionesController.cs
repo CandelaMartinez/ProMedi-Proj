@@ -19,6 +19,12 @@ namespace ProMedi.Areas.Admin.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
         #region Llamadas a la API
         [HttpGet]
         public IActionResult GetAll()
