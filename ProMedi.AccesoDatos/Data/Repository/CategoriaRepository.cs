@@ -21,7 +21,7 @@ namespace ProMedi.AccesoDatos.Data.Repository
             objToUpdate.Name = categoria.Name;
             objToUpdate.Orden = categoria.Orden;
 
-            _context.SaveChanges();
+            //_context.SaveChanges();
 
         }
        
