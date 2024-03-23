@@ -21,7 +21,6 @@ namespace ProMedi.AccesoDatos.Data.Repository
             var objToUpdate = _context.Publicaciones.FirstOrDefault(s => s.Id == publicacion.Id);
             objToUpdate.Nombre = publicacion.Nombre;
             objToUpdate.Descripcion = publicacion.Descripcion;
-            objToUpdate.FechaCreacion = publicacion.FechaCreacion;
             objToUpdate.UrlImagen = publicacion.UrlImagen;
             objToUpdate.CategoriaId = publicacion.CategoriaId;
 

@@ -12,15 +12,15 @@ namespace ProMedi.Models
     {
         [Key]
         public int Id { get; set; }
+
         [Required(ErrorMessage ="Debes agregar un nombre")]
         [Display(Name ="Nombre de la Publicacion")]
-        
         public string Nombre { get; set; }
+
         [Required(ErrorMessage = "Debes agregar la descripcion")]
-        
         public string Descripcion { get; set; }
+
         [Display(Name = "Fecha de publicacion")]
-        
         public string FechaCreacion { get; set; }
         
         [DataType(DataType.ImageUrl)]
