@@ -6,7 +6,7 @@
 <br />
 <br />
 <h3 class="text-center">Crear una nueva publicacion</h3>
-<form method="POST" asp-action="Create">
+<form method="POST" asp-action="Create" enctype="multipart/form-data">
     <div class="row px-2 offset-1 border">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
@@ -46,6 +46,20 @@
                 </div>
             </div>
             <br />
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Publicacion.UrlImagen"></label>
+                </div>
+                <div class="col-8">
+                    <input type= "file" name="archivos" id="subidaArchivo" class="form-control" />
+                    <span asp-validation-for="Publicacion.Descripcion" class="text-danger"></span>
+                </div>
+            </div>
+
+            <br />
+
+
+
             <div class="form-group-row">
                 <div class="col-8">
                     <partial name="_VistaCrearVolver" />
