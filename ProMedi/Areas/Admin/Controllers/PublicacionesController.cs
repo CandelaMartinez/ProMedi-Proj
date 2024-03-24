@@ -167,7 +167,36 @@ namespace ProMedi.Areas.Admin.Controllers
         {
             return Json(new { data = _unitOfWork.Publicacion.GetAll(includeProperties: "Categoria") });
         }
-        
+
+        //parte de la implementacion de delete esta en javascript publicacion.js
+        //donde muestro los sweet alerts y los toastr
+        //primero borro la imagen y luego el registro de la db
+        [HttpDelete]
+        public IActionResult Delete(int id)
+        {
+            var objFromDb = _unitOfWork.Publicacion.Get(id);
+            //para borrar la imagen del servidor, relacionada con la publicacion
+            string rutaPrincipalImagenEnServer = _webHostEnvironment.WebRootPath;
+            var rutaImagen = Path.Combine(rutaPrincipalImagenEnServer, objFromDb.UrlImagen.TrimStart('\\'));
+
+            //valido que el archivo existe en la ruta
+            //si existe, la borro porque es la ruta antigua, asi no ocupa espacio en el server
+            if (System.IO.File.Exists(rutaImagen))
+            {
+                System.IO.File.Delete(rutaImagen);
+            }
+
+            if (objFromDb == null)
+            {
+                //tengo que devolver success = false para usar el plugin de sweet alters
+                return Json(new { success = false, message = "Error al intentar borrar la publicacion" });
+            }
+
+            _unitOfWork.Publicacion.Remove(objFromDb);
+            _unitOfWork.Save();
+            //tengo que devolver success = true para usar el plugin de sweet alters
+            return Json(new { success = true, message = "Publicacion borrada correctamente" });
+        }
         #endregion
     }
 }
