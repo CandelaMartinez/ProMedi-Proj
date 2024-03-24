@@ -79,7 +79,7 @@ namespace ProMedi.Areas.Admin.Controllers
         {
             return Json(new {data = _unitOfWork.Categoria.GetAll()});
         }
-
+        //parte de la implementacion de delete esta en javascript categoria.js
         [HttpDelete]
         public IActionResult Delete(int id) {
             var objFromDb = _unitOfWork.Categoria.Get(id);
@@ -92,7 +92,7 @@ namespace ProMedi.Areas.Admin.Controllers
             _unitOfWork.Categoria.Remove(objFromDb);
             _unitOfWork.Save();
             //tengo que devolcer success = true para usar el plugin de sweet alters
-            return Json(new { success = false, message = "Categoria borrada correctamente" });
+            return Json(new { success = true, message = "Categoria borrada correctamente" });
         }
         #endregion
     }
