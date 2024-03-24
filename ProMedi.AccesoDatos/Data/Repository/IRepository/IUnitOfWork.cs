@@ -11,6 +11,7 @@ namespace ProMedi.AccesoDatos.Data.Repository.IRepository
     {
         //agregamos todos los repositorios
         ICategoriaRepository Categoria { get; }
+        IPublicacionRepository Publicacion { get; }
 
         //guarda los cambios que se realizen el a unidad de trabajo
         void Save();

@@ -5,25 +5,32 @@ $(document).ready(function () {
 });
 
 function cargarDatatable() {
-    dataTable = $("#tblCategorias").DataTable({
+    dataTable = $("#tblPublicaciones").DataTable({
         "ajax": {
-            "url": "/admin/categorias/GetAll",
+            "url": "/admin/publicaciones/GetAll",
             "type": "GET",
             "datatype" : "json"
         },
         "columns": [
             { "data": "id", "width": "5%" },
-            { "data": "name", "width": "40%" },
-            { "data": "orden", "width": "10%" },
+            { "data": "nombre", "width": "20%" },
+            { "data": "categoria.name", "width": "15%" },
+            {
+                "data": "urlImagen",
+                "render": function (imagen) {
+                    return `<img src="../${imagen}" width="120px"/>`
+                }
+            },
+            { "data": "fechaCreacion", "width": "%" },
             {
                 "data": "id",
                 "render": function (data) {
                     return `<div class="text-center">
-                                <a href="/Admin/Categorias/Edit/${data}" class="btn btn-success text-white" style="cursor:pointer; width:140px;">
+                                <a href="/Admin/Publicaciones/Edit/${data}" class="btn btn-success text-white" style="cursor:pointer; width:140px;">
                                 <i class="far fa-edit"></i>Editar
                                 </a>
                                 &nbsp;
-                                <a onclick=Delete("/Admin/Categorias/Delete/${data}") class="btn btn-danger text-white" style="cursor:pointer; width:140px;">
+                                <a onclick=Delete("/Admin/Publicaciones/Delete/${data}") class="btn btn-danger text-white" style="cursor:pointer; width:140px;">
                                 <i class="far fa-trash-alt"></i>Borrar
                                 </a>
                             </div>
@@ -51,8 +58,9 @@ function cargarDatatable() {
                 "next": "Siguiente",
                 "previous": "Anterior"
             }
-        },
+    },
         "width": "100%"
+
 
     });
 }
@@ -83,5 +91,3 @@ function Delete(url) {
         });
     });
 }
-
-
