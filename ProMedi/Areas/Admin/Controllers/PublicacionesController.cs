@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProMedi.AccesoDatos.Data.Repository.IRepository;
+using ProMedi.Models;
 using ProMedi.Models.ViewModels;
 
 namespace ProMedi.Areas.Admin.Controllers
@@ -17,13 +18,13 @@ namespace ProMedi.Areas.Admin.Controllers
             _unitOfWork = unitOfWork;
             _webHostEnvironment = webHostEnvironment;   
         }
-
+        //envia vista inicial
         [HttpGet]
         public IActionResult Index()
         {
             return View();
         }
-
+        //crea un viewModel con la lista de categorias para el desplegable y lo envia a la vista
         [HttpGet]
         public IActionResult Create()
         {
@@ -35,7 +36,9 @@ namespace ProMedi.Areas.Admin.Controllers
 
             return View(publicacionVM);
         }
-
+        //recibe los datos del form de creacion
+        //obtengo los datos que no recibo del form, datos calculados
+        //los guardo en el repositorio desde unitOfWork
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(PublicacionViewModel publicacionVm)
@@ -76,6 +79,88 @@ namespace ProMedi.Areas.Admin.Controllers
             publicacionVm.ListaCategorias = _unitOfWork.Categoria.GetListaCategorias();
             return View(publicacionVm);
         }
+
+        //recibo el id desde el form de la publicacion a editar
+        //busco esa publicacion en la base de datos
+        //la guardo en el viewModel que envio a la vista asi la muestra
+        [HttpGet]
+        public IActionResult Edit(int? id)
+        {
+            PublicacionViewModel publicacionVM = new PublicacionViewModel()
+            {
+                Publicacion = new ProMedi.Models.Publicacion(),
+                ListaCategorias = _unitOfWork.Categoria.GetListaCategorias()
+            };
+
+            if (id != null)
+            {
+                publicacionVM.Publicacion = _unitOfWork.Publicacion.Get(id.GetValueOrDefault());
+            }
+
+            return View(publicacionVM);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(PublicacionViewModel publicacionVM)
+        {
+            if (publicacionVM.Publicacion != null)
+            {
+                string rutaPrincipal = _webHostEnvironment.WebRootPath;
+                var archivos = HttpContext.Request.Form.Files;
+
+                //obtengo el objecto de la base de datos
+                var publicacionDesdeBd = _unitOfWork.Publicacion.Get(publicacionVM.Publicacion.Id);
+
+                //case donde quiero reemplazar la imagen de la publicacion
+                if (archivos.Count() > 0)
+                {
+                    //nueva imagen
+                    string nombreArchivo = Guid.NewGuid().ToString();
+                    var subidas = Path.Combine(rutaPrincipal, @"imagenes\publicaciones");
+                    var extension = Path.GetExtension(archivos[0].FileName);
+                    var nuevaExtension = Path.GetExtension(archivos[0].FileName);
+                    //quitaos la contrabarra a la ruta
+                    var rutaImagen = Path.Combine(rutaPrincipal, publicacionDesdeBd.UrlImagen.TrimStart('\\'));
+                    //valido que el archivo existe en la ruta
+                    //si existe, la borro porque es la ruta antigua, asi no ocupa espacio en el server
+                    if (System.IO.File.Exists(rutaImagen))
+                    {
+                        System.IO.File.Delete(rutaImagen);
+                    }
+
+                    //subimos el nuevo archivo
+                    using (var fileStreams = new FileStream(Path.Combine(subidas, nombreArchivo + extension), FileMode.Create))
+                    {
+                        archivos[0].CopyTo(fileStreams);
+                    }
+
+                    publicacionVM.Publicacion.UrlImagen = @"\imagenes\publicaciones\" + nombreArchivo + extension;
+                    publicacionVM.Publicacion.FechaCreacion = DateTime.Now.ToString();
+
+                    _unitOfWork.Publicacion.Update(publicacionVM.Publicacion);
+                    _unitOfWork.Save();
+
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    //case: cuando no quiero reemplazar la imagen, uso la anterior
+                    publicacionVM.Publicacion.UrlImagen = publicacionDesdeBd.UrlImagen;
+                }
+
+                _unitOfWork.Publicacion.Update(publicacionVM.Publicacion);
+                _unitOfWork.Save();
+
+                return RedirectToAction(nameof(Index));
+
+            }
+
+            publicacionVM.ListaCategorias = _unitOfWork.Categoria.GetListaCategorias();
+            return View(publicacionVM);
+        }
+
         #region Llamadas a la API
         [HttpGet]
         public IActionResult GetAll()
