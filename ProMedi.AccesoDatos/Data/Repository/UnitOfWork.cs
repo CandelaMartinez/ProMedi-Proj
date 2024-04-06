@@ -18,6 +18,7 @@ namespace ProMedi.AccesoDatos.Data.Repository
             _context = context;
             Categoria = new CategoriaRepository(context);
             Publicacion = new PublicacionRepository(context);
+            Carrousel = new CarrouselRepository(context);
         }
 
         public ICategoriaRepository Categoria { get; private set; }
