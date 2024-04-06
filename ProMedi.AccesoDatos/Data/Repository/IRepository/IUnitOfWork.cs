@@ -13,6 +13,8 @@ namespace ProMedi.AccesoDatos.Data.Repository.IRepository
         ICategoriaRepository Categoria { get; }
         IPublicacionRepository Publicacion { get; }
 
+        ICarrouselRepository Carrousel { get; }
+
         //guarda los cambios que se realizen el a unidad de trabajo
         void Save();
 
