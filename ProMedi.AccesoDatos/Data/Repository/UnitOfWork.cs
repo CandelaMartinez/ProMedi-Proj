@@ -23,7 +23,7 @@ namespace ProMedi.AccesoDatos.Data.Repository
         public ICategoriaRepository Categoria { get; private set; }
         public IPublicacionRepository Publicacion { get; private set; }
 
-       
+        public ICarrouselRepository Carrousel { get; private set; }
 
         public void Dispose()
         {
