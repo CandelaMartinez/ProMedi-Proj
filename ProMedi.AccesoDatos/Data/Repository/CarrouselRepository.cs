@@ -20,7 +20,10 @@ namespace ProMedi.AccesoDatos.Data.Repository
         //recibimos el objeto desde el formulario
         public void Update(Carrousel carrousel)
         {
-            throw new NotImplementedException();
+            var objDesdeDb = _context.Carrouseles.FirstOrDefault(s => s.Id == carrousel.Id);
+            objDesdeDb.Nombre = carrousel.Nombre;
+            objDesdeDb.Estado = carrousel.Estado;
+            objDesdeDb.UrlImagen = carrousel.UrlImagen;
         }
     }
 }
