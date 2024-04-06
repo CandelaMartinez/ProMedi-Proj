@@ -14,5 +14,7 @@ namespace ProMedi.AccesoDatos.Data
         //agregar todos los modelos para que se creen la tablas con las migraciones
         public DbSet<Categoria> Categorias { get; set; }
         public DbSet<Publicacion> Publicaciones { get; set; }
+
+        public DbSet<Carrousel> Carrouseles { get; set; }
     }
 }
