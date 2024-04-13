@@ -18,7 +18,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using Microsoft.VisualBasic;
 using ProMedi.Models;
+using ProMedi.Utilidades;
 
 
 
@@ -32,13 +34,16 @@ namespace ProMeDi.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<ApplicationUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        //agrego el rolManager para poder guardar un rol cuando registro un user
+        private readonly RoleManager<IdentityRole> _roleManager;
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             IUserStore<ApplicationUser> userStore,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -46,6 +51,7 @@ namespace ProMeDi.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _roleManager = roleManager;
         }
 
         /// <summary>
@@ -144,19 +150,48 @@ namespace ProMeDi.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
+                    //si puedo registrar el usuario, entonces me aboco a registrar el user en un rol
+                    //primero creo el rol si es que aun no ha sido creado
+                    if(!await _roleManager.RoleExistsAsync(Constantes.Administrador))
+                    {
+                        await _roleManager.CreateAsync(new IdentityRole(Constantes.Administrador));
+                        await _roleManager.CreateAsync(new IdentityRole(Constantes.Medico));
+                        await _roleManager.CreateAsync(new IdentityRole(Constantes.NoRegistrado));
+                    }
+
+                    //obtengo el rol que elegi
+                    string rol = Request.Form["radioUsuarioRole"].ToString();
+
+                    //veo si el rol seleccionado es admin, si es, lo agrego
+                    if (rol == Constantes.Administrador)
+                    {
+                        await _userManager.AddToRoleAsync(user, Constantes.Administrador);
+                    }
+                    else
+                    {
+                        if (rol == Constantes.Medico) {
+                            await _userManager.AddToRoleAsync(user, Constantes.Medico);
+                        }
+                        else
+                        {
+                            await _userManager.AddToRoleAsync(user, Constantes.NoRegistrado);
+                        }
+                    }
+
+
                     _logger.LogInformation("User created a new account with password.");
 
-                    var userId = await _userManager.GetUserIdAsync(user);
-                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                    var callbackUrl = Url.Page(
-                        "/Account/ConfirmEmail",
-                        pageHandler: null,
-                        values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
-                        protocol: Request.Scheme);
+                    //var userId = await _userManager.GetUserIdAsync(user);
+                    //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    //code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+                    //var callbackUrl = Url.Page(
+                    //    "/Account/ConfirmEmail",
+                    //    pageHandler: null,
+                    //    values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
+                    //    protocol: Request.Scheme);
 
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    //await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
+                    //    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
