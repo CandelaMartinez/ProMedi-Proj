@@ -107,17 +107,16 @@ namespace ProMedi.Areas.Admin.Controllers
 
                 var carrouselDdesdeBd = _unitOfWork.Carrousel.Get(carrousel.Id);
 
+                //si subi nuevos archivos para reemplazar la imagen anterior
                 if (archivos.Count() > 0)
                 {
                     //Nuevo imagen carrousel
                     string nombreArchivo = Guid.NewGuid().ToString();
                     var subidas = Path.Combine(rutaPrincipal, @"imagenes\carrouseles");
                     var extension = Path.GetExtension(archivos[0].FileName);
-
-                    //var nuevaExtension = Path.GetExtension(archivos[0].FileName);
-
                     var rutaImagen = Path.Combine(rutaPrincipal, carrouselDdesdeBd.UrlImagen.TrimStart('\\'));
 
+                    //el archivo existe en el proyecto, lo borro
                     if (System.IO.File.Exists(rutaImagen))
                     {
                         System.IO.File.Delete(rutaImagen);
