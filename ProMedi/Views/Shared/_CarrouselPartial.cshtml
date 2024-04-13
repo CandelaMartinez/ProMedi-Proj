@@ -1,0 +1,36 @@
+﻿@model ProMedi.Models.ViewModels.HomeViewModel
+<!--carrousel comienzo-->
+<div id="carouselImagenes" class="carousel slide" data-ride="carousel">
+  
+    <div class="carousel-inner">
+      @*   cargo dinamicamente el carrousel con las imagenes en base de datos que me traigo en el viewModel *@
+
+        @{
+            int contador = 0;
+            @foreach(var carrousel in Model.Carrouseles)
+            {
+                var activo = contador++ == 0 ? "active" : "";
+
+                @if(carrousel.Estado == true)
+                {
+                    <div class="carousel-item @activo">
+                        <img class="d-block w-100" src="@Url.Content(carrousel.UrlImagen)" alt="primer carrousel">
+                        <h1 class="text-white text-center bg-dark py-1">@Html.Raw(carrousel.Nombre)</h1>
+                    </div>
+                }
+            }
+        }
+
+   
+       
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselImagenes" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselImagenes" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+<!--carrousel final-->
