@@ -10,6 +10,7 @@ namespace ProMedi.Utilidades
     {
         public const string Administrador = "Admin";
         public const string Medico = "Medico";
+        public const string NoRegistrado = "NoRegistrado";
 
     }
 }
