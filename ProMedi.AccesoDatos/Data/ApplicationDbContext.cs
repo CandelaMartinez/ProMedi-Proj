@@ -4,7 +4,7 @@ using ProMedi.Models;
 
 namespace ProMedi.AccesoDatos.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -16,5 +16,6 @@ namespace ProMedi.AccesoDatos.Data
         public DbSet<Publicacion> Publicaciones { get; set; }
 
         public DbSet<Carrousel> Carrouseles { get; set; }
+        public DbSet<ApplicationUser> ApplicationUser { get; set; }
     }
 }
