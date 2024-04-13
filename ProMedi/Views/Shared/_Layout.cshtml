@@ -48,6 +48,13 @@
                 <partial name="_LoginPartial" />
             </div>
         </nav>
+
+        <!--agregar carrousel, solo si se trata de la pagina de inicio-->
+        @if(ViewBag.IsHome == true){
+        <partial name="_CarrouselPartial" />
+        }
+        
+       
     </header>
     <div class="container">
         <main role="main" class="pb-3">

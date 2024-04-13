@@ -1,8 +1,38 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model ProMedi.Models.ViewModels.HomeViewModel
+
+@{
+    ViewData["Title"] = "Inicio";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="row mt-1">
+    <div class="col-sm-12">
+        <h1 class="text-center text-dark bg-secondary py-1">Ultimos Cursos Medicos</h1>
+    </div>
 </div>
+
+
+@if (Model.Publicaciones.Count() > 0)
+{
+    <hr/>
+    <div class="row">
+        @foreach (var publicacion in Model.Publicaciones.OrderBy(o => o.Id))
+        {
+            <div class="col-4">
+                <div class="card">
+                    <img src="@publicacion.UrlImagen" class="img-thumbnail" width="100%" />
+                    <div class="card-body">
+                        <h5 class="text-center">@publicacion.Nombre</h5>
+                        <a asp-action="Details" class="btn btn-success" style="border-radius10px" asp-route-id="@publicacion.Id">
+                            Más información
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <p>No hay publicaciones disponibles</p>
+}
+
