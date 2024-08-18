@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProMedi.AccesoDatos.Data.Repository.IRepository;
 using ProMedi.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ProMedi.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Area("Admin")]
     public class CategoriasController : Controller
     {

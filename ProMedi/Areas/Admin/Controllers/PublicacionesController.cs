@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ProMedi.AccesoDatos.Data.Repository.IRepository;
 using ProMedi.Models;
 using ProMedi.Models.ViewModels;
 
 namespace ProMedi.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Area("Admin")]
     public class PublicacionesController : Controller
     {
