@@ -11,6 +11,8 @@ namespace ProMedi.AccesoDatos.Data.Repository.IRepository
     {
         void Update(Publicacion publicacion);
         
+        //buscador
+        IQueryable<Publicacion> AsQueryable();
 
     }
 }

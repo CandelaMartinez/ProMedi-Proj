@@ -33,6 +33,27 @@ namespace ProMedi.Areas.Cliente.Controllers
             return View(homeVM);
         }
 
+        //Para buscador
+        [HttpGet]
+        public IActionResult ResultadoBusqueda(string searchString, int page = 1, int pageSize = 3)
+        {
+            var articulos = _unitOfWork.Publicacion.AsQueryable();
+
+            // Filtrar por título si hay un término de búsqueda
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                articulos = articulos.Where(e => e.Nombre.Contains(searchString));
+            }
+
+            // Paginar los resultados
+            var paginatedEntries = articulos.Skip((page - 1) * pageSize).Take(pageSize);
+
+            // Crear el modelo para la vista
+            var model = new ListaPaginada<Publicacion>(paginatedEntries.ToList(), articulos.Count(), page, pageSize, searchString);
+            return View(model);
+        }
+
+
         //metodo llamado desde home.cshtml para mostrar los detalles de la publicacion en la card
         //recibe el id de la publicacion a buscar 
         [HttpGet]
