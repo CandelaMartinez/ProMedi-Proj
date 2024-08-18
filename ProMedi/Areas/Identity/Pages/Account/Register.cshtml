@@ -51,8 +51,8 @@
 
             <!--selector de roles de usuario-->
             <!--Autorización-->
-          @*   @if (User.IsInRole(Constantes.Administrador))
-            { *@
+            @if (User.IsInRole(Constantes.Administrador))
+            { 
                 <!--Selector de Roles-->
                 <div class="form-group row">
                     <div class="col-6"><h4>Seleccionar Rol para el Usuario</h4></div>
@@ -61,7 +61,7 @@
                         <input type="radio" name="radioUsuarioRole" value="@Constantes.Medico" /> @Constantes.Medico
                     </div>
                 </div>
-       @*      } *@
+            } 
 
             <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Registro</button>
         </form>

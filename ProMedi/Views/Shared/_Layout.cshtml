@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using ProMedi.Utilidades
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -30,15 +31,20 @@
                                 <span class="visually-hidden">(current)</span>
                             </a>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Administrar Contenidos</a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" asp-area="Admin" asp-controller="Categorias" asp-action="Index">Categorias</a>
-                                <a class="dropdown-item" asp-area="Admin" asp-controller="Publicaciones" asp-action="Index">Publicaciones</a>
-                                <a class="dropdown-item" asp-area="Admin" asp-controller="Carrouseles" asp-action="Index">Carrouseles</a>
-                                <a class="dropdown-item" asp-area="Admin" asp-controller="Usuarios" asp-action="Index">Usuarios</a>
-                            </div>
-                        </li>
+                        <!--Autorizacion, solo ingresan usuarios administradores-->
+                        @if (User.IsInRole(Constantes.Administrador))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Administrar Contenidos</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Categorias" asp-action="Index">Categorias</a>
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Publicaciones" asp-action="Index">Publicaciones</a>
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Carrouseles" asp-action="Index">Carrouseles</a>
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Usuarios" asp-action="Index">Usuarios</a>
+                                </div>
+                            </li>
+                        }
+                    
                     </ul>
                     <form class="d-flex">
                         <input class="form-control me-sm-2" type="search" placeholder="Ingresa tu busqueda">
