@@ -25,12 +25,12 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarColor01">
                     <ul class="navbar-nav me-auto">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#">
+                       @*  <li class="nav-item">
+                            <a class="nav-link active" href="/">
                                 Inicio
                                 <span class="visually-hidden">(current)</span>
                             </a>
-                        </li>
+                        </li> *@
                         <!--Autorizacion, solo ingresan usuarios administradores-->
                         @if (User.IsInRole(Constantes.Administrador))
                         {
@@ -68,9 +68,10 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - ProMedi - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <footer class="border-top footer text-muted bg-dark">
+        <div class="container py-4">
+            <span class="text-white"> &copy; 2024 - ProMedi
+            </span>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
