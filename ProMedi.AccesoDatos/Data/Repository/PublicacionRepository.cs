@@ -15,6 +15,13 @@ namespace ProMedi.AccesoDatos.Data.Repository
         {
             _context = context;
         }
+
+        //interfaz IQueryable para poder realizar consultas a la base de datos
+        public IQueryable<Publicacion> AsQueryable()
+        {
+            return _context.Set<Publicacion>().AsQueryable();
+        }
+
         //recibimos el objeto desde el formulario
         public void Update(Publicacion publicacion)
         {
