@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ApplicationUser>
+﻿@model IEnumerable<ProMedi.Models.ViewModels.UserWithRoleViewModel>
 @{
     ViewData["Title"] = "Lista de Usuarios";
 }
@@ -25,6 +25,7 @@
                     <th>@Html.DisplayNameFor(m => m.Id)</th>
                     <th>@Html.DisplayNameFor(m => m.Nombre)</th>
                     <th>@Html.DisplayNameFor(m => m.Email)</th>
+                    <th>@Html.DisplayNameFor(m => m.Role)</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -35,6 +36,7 @@
                         <td>@Html.DisplayFor(m => item.Id)</td>
                         <td>@Html.DisplayFor(m => item.Nombre)</td>
                         <td>@Html.DisplayFor(m => item.Email)</td>
+                        <td>@Html.DisplayFor(m => item.Role)</td>
                         <td>
                             @if (item.LockoutEnd == null || item.LockoutEnd < DateTime.Now)
                             {

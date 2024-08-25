@@ -1,4 +1,5 @@
-﻿using ProMedi.AccesoDatos.Data.Repository.IRepository;
+﻿using Microsoft.AspNetCore.Identity;
+using ProMedi.AccesoDatos.Data.Repository.IRepository;
 using ProMedi.Models;
 using System;
 using System.Collections.Generic;
@@ -12,14 +13,16 @@ namespace ProMedi.AccesoDatos.Data.Repository
     {
         //acceso a los datos
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public UnitOfWork(ApplicationDbContext context)
+        public UnitOfWork(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
+            _userManager = userManager;
             _context = context;
-            Categoria = new CategoriaRepository(context);
-            Publicacion = new PublicacionRepository(context);
-            Carrousel = new CarrouselRepository(context);
-            Usuario = new UsuarioRepository(context);
+            Categoria = new CategoriaRepository(_context);
+            Publicacion = new PublicacionRepository(_context);
+            Carrousel = new CarrouselRepository(_context);
+            Usuario = new UsuarioRepository(_context, _userManager);
         }
 
         public ICategoriaRepository Categoria { get; private set; }
