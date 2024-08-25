@@ -11,5 +11,8 @@ namespace ProMedi.AccesoDatos.Data.Repository.IRepository
     {
         void BloquearUsuario(string IdUsuario);
         void DesbloquearUsuario(string IdUsuario);
+
+        // Definir el método para obtener los roles del usuario correctamente
+        Task<IList<string>> GetUserRolesAsync(ApplicationUser user);
     }
 }
