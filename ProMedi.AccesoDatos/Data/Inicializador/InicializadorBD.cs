@@ -48,8 +48,15 @@ namespace ProMedi.AccesoDatos.Data.Inicializador
             {
                 UserName = "candelaAdmin@gmail.com",
                 Email = "candelaAdmin@gmail.com",
-                EmailConfirmed = true,
-                Nombre = "CandelaAdmin"
+                EmailConfirmed = false,
+                Nombre = "CandelaAdmin",
+                Ciudad = "Admin",
+                Direccion = "Admin",
+                Pais = "Admin",
+                LockoutEnabled = true,
+                AccessFailedCount = 0,
+                TwoFactorEnabled = false,
+                PhoneNumberConfirmed = false
 
             }, "Admin123*").GetAwaiter().GetResult();
 
