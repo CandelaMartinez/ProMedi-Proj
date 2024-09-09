@@ -5,6 +5,7 @@ using ProMedi.AccesoDatos.Data.Repository;
 using ProMedi.AccesoDatos.Data.Repository.IRepository;
 using Microsoft.AspNetCore.Identity;
 using ProMedi.Models;
+using ProMedi.AccesoDatos.Data.Inicializador;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,6 +26,10 @@ builder.Services.AddControllersWithViews();
 //para poder usarlo
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
+//inicializador, siembra de datos, primer paso
+builder.Services.AddScoped<IInitializadorBD, InicializadorBD>();
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -38,6 +43,9 @@ else
 }
 app.UseStaticFiles();
 
+//siembra de datos, metodo que ejecuta 
+SiembraDatos();
+
 app.UseRouting();
 
 app.UseAuthentication();
@@ -50,3 +58,13 @@ app.MapControllerRoute(
 app.MapRazorPages();
 
 app.Run();
+
+
+void SiembraDatos()
+{
+    using (var scope = app.Services.CreateScope())
+    {
+        var inicializadorDB = scope.ServiceProvider.GetRequiredService<IInitializadorBD>();
+        inicializadorDB.Inicializar();
+    }
+}
