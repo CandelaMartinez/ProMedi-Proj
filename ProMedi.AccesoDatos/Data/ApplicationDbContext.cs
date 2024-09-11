@@ -17,5 +17,7 @@ namespace ProMedi.AccesoDatos.Data
 
         public DbSet<Carrousel> Carrouseles { get; set; }
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
+
+        
     }
 }

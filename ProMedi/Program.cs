@@ -29,6 +29,13 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 //inicializador, siembra de datos, primer paso
 builder.Services.AddScoped<IInitializadorBD, InicializadorBD>();
 
+builder.Services.AddControllersWithViews()
+    .AddNewtonsoftJson(options =>
+    {
+        options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+    });
+
+
 
 var app = builder.Build();
 
