@@ -19,6 +19,6 @@ namespace ProMedi.Models
         public int? Orden { get; set;}
 
         //una categoria puede tener muchas publicaciones
-        public ICollection<Publicacion> Publicacions { get; set; }
+        public virtual ICollection<Publicacion> Publicaciones { get; set; }
     }
 }
