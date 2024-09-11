@@ -46,13 +46,16 @@ namespace ProMedi.Areas.Cliente.Controllers
             // Paginar los resultados
             var paginatedEntries = publicacions.Skip((page - 1) * pageSize).Take(pageSize);
 
+            var categorias = _unitOfWork.Categoria.GetAll().ToList();
+
             //instancio el viewModel que le pasare a la vista 
             HomeViewModel homeVM = new HomeViewModel()
             {
                 Carrouseles = _unitOfWork.Carrousel.GetAll(),
                 Publicaciones = paginatedEntries.ToList(),
                 PageIndex = page,
-                TotalPages = (int)Math.Ceiling(publicacions.Count()/(double)pageSize)
+                TotalPages = (int)Math.Ceiling(publicacions.Count()/(double)pageSize),
+                Categorias = categorias
             };
 
             //envio esta variable para indicar que estamos en la pagina Home
@@ -106,6 +109,13 @@ namespace ProMedi.Areas.Cliente.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        [HttpGet]
+        public JsonResult ObtenerPublicaciones(int id)
+        {
+            var publicaciones = _unitOfWork.Publicacion.GetAll().Where(p => p.CategoriaId == id).ToList();
+            return Json(publicaciones);
         }
     }
 }
