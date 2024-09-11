@@ -17,5 +17,8 @@ namespace ProMedi.Models
         public string Name { get; set; }
         [Range(1,100, ErrorMessage = "El valor debe ser entre 1 y 100")]
         public int? Orden { get; set;}
+
+        //una categoria puede tener muchas publicaciones
+        public virtual ICollection<Publicacion> Publicaciones { get; set; }
     }
 }

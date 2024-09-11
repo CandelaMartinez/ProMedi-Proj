@@ -11,6 +11,7 @@ namespace ProMedi.Models.ViewModels
         //necesito crear un viewModel porque le paso a la vista data de dos modelos diferentes
         public IEnumerable<Carrousel> Carrouseles { get; set;}
         public IEnumerable<Publicacion> Publicaciones { get; set;}
+        public List<Categoria> Categorias { get; set; }
         public int TotalPages { get; set; }
         public int PageIndex { get; set; }
     }

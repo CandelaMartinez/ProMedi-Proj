@@ -34,7 +34,7 @@ namespace ProMedi.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Categoria categoria)
         {
-            if (ModelState.IsValid)
+            if (categoria != null)
             {
                 //logica que guarda categoria en la base de datos
                 _unitOfWork.Categoria.Add(categoria);
