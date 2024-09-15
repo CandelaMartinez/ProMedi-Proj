@@ -23,5 +23,8 @@ namespace ProMedi.Models
         public DateTime FechaNacimiento { get; set; }
         public bool IsArchived { get; set; }
 
+        //un paciente puede tener muchas analiticas de orina
+        public virtual ICollection<AnaliticaOrina> AnaliticaOrina { get; set; }
+
     }
 }

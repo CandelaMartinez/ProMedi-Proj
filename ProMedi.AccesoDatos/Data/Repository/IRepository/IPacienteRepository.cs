@@ -10,7 +10,7 @@ namespace ProMedi.AccesoDatos.Data.Repository.IRepository
 {
     public interface IPacienteRepository : IRepository<Paciente>
     {
-        IEnumerable<SelectListItem> GetListaPacientes();
+        //IEnumerable<SelectListItem> GetListaPacientes();
         void Update(Paciente paciente);
     }
 }
