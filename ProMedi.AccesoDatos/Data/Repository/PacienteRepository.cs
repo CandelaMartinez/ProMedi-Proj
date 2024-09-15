@@ -22,14 +22,14 @@ namespace ProMedi.AccesoDatos.Data.Repository
     
  
 
-        public IEnumerable<SelectListItem> GetListaPacientes()
-        {
-            return _context.Pacientes.Select(x => new SelectListItem()
-            {
-                Text = x.Numero,
-                Value = x.Id.ToString()
-            });
-        }
+        //public IEnumerable<SelectListItem> GetListaPacientes()
+        //{
+        //    return _context.Pacientes.Select(x => new SelectListItem()
+        //    {
+        //        Text = x.Numero,
+        //        Value = x.Id.ToString()
+        //    });
+        //}
 
         public void Update(Paciente paciente)
         {

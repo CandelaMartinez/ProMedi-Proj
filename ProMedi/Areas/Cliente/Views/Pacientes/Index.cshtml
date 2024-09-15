@@ -43,6 +43,10 @@
                             <a class="btn btn-warning text-white" asp-action="Edit" asp-route-id="@item.Id" style="width:50px" title="Editar">
                                 <i class="fas fa-edit"></i>
                             </a>
+                            <!-- Botón para ver las analíticas de orina del paciente -->
+                            <a class="btn btn-info text-white" asp-controller="AnaliticasOrina" asp-action="Index" asp-route-pacienteId="@item.Id" style="width:50px" title="Ver Analíticas de Orina">
+                                <i class="fas fa-vial"></i>
+                            </a>
 
                             @if (!item.IsArchived)
                             {

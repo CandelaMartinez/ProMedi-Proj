@@ -24,6 +24,7 @@ namespace ProMedi.AccesoDatos.Data.Repository
             Carrousel = new CarrouselRepository(_context);
             Usuario = new UsuarioRepository(_context, _userManager);
             Paciente = new PacienteRepository(_context);
+            AnaliticaOrina = new AnaliticaOrinaRepository(_context);
         }
 
         public ICategoriaRepository Categoria { get; private set; }
@@ -33,6 +34,8 @@ namespace ProMedi.AccesoDatos.Data.Repository
 
         public IUsuarioRepository Usuario { get; private set; }
         public IPacienteRepository Paciente { get; private set; }
+
+        public IAnaliticaOrinaRepository AnaliticaOrina { get; private set; }
 
 
         public void Dispose()

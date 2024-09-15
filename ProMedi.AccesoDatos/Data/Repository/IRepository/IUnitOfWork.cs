@@ -18,6 +18,8 @@ namespace ProMedi.AccesoDatos.Data.Repository.IRepository
         IUsuarioRepository Usuario { get; }
         IPacienteRepository Paciente { get; }
 
+        IAnaliticaOrinaRepository AnaliticaOrina { get; }
+
         //guarda los cambios que se realizen el a unidad de trabajo
         void Save();
 
