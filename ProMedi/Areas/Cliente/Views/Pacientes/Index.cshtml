@@ -1,0 +1,65 @@
+﻿@model IEnumerable<ProMedi.Models.Paciente>
+@{
+    ViewData["Title"] = "Lista de Pacientes";
+}
+
+<br />
+<br />
+<div class="border">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-center">Lista de Pacientes</h2>
+        </div>
+        <div class="col-6">
+            <a asp-area="Cliente" asp-controller="Pacientes" asp-action="Create" class="btn btn-info">
+                <i class="fas fa-plus"></i> &nbsp; Registra un nuevo Paciente
+            </a>
+        </div>
+    </div>
+
+    @if (Model != null && Model.Count() > 0)
+    {
+        <table class="table table-striped table-bordered" style="width: 100%">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(m => m.Id)</th>
+                    <th>@Html.DisplayNameFor(m => m.Nombre)</th>
+                    <th>@Html.DisplayNameFor(m => m.Apellidos)</th>
+                    <th>@Html.DisplayNameFor(m => m.Numero)</th>
+                    <th>@Html.DisplayNameFor(m => m.FechaNacimiento)</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(m => item.Id)</td>
+                        <td>@Html.DisplayFor(m => item.Nombre)</td>
+                        <td>@Html.DisplayFor(m => item.Apellidos)</td>
+                        <td>@Html.DisplayFor(m => item.Numero)</td>
+                        <td>@Html.DisplayFor(m => item.FechaNacimiento)</td>
+                        <td>
+                            <a class="btn btn-warning text-white" asp-action="Edit" asp-route-id="@item.Id" style="width:50px" title="Editar">
+                                <i class="fas fa-edit"></i>
+                            </a>
+
+                            @if (!item.IsArchived)
+                            {
+                                <a class="btn btn-success text-white" asp-action="Archivar" asp-route-id="@item.Id" style="width:50px" title="Archivar">
+                                    <i class="fas fa-lock-open"></i>
+                                </a>
+                            }
+                            else
+                            {
+                                <a class="btn btn-danger text-white" asp-action="Desarchivar" asp-route-id="@item.Id" style="width:50px" title="Desarchivar">
+                                    <i class="fas fa-lock"></i>
+                                </a>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>

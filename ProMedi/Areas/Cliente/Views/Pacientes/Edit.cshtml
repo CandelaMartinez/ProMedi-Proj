@@ -1,0 +1,95 @@
+﻿@model ProMedi.Models.Paciente
+
+@{
+    ViewData["Title"] = "Editar Paciente";
+}
+
+<br />
+<br />
+<h3 class="text-center">Editar Paciente</h3>
+
+<form method="POST" asp-action="Edit" enctype="multipart/form-data">
+    <!-- Campo oculto para el ID del paciente -->
+    <input type="hidden" asp-for="Id" />
+
+    <div class="row px-4 py-3 border">
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <div class="col-8 mt-4">
+            <!-- Campo para el nombre -->
+            <div class="form-group row mb-3">
+                <div class="col-4">
+                    <label asp-for="Nombre" class="form-label"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Nombre" class="form-control" placeholder="Ingresa el nombre" />
+                    <span asp-validation-for="Nombre" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Campo para el apellido -->
+            <div class="form-group row mb-3">
+                <div class="col-4">
+                    <label asp-for="Apellidos" class="form-label"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Apellidos" class="form-control" placeholder="Ingresa los apellidos" />
+                    <span asp-validation-for="Apellidos" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Campo para el número -->
+            <div class="form-group row mb-3">
+                <div class="col-4">
+                    <label asp-for="Numero" class="form-label"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Numero" class="form-control" type="tel" placeholder="Ingresa el número de contacto" />
+                    <span asp-validation-for="Numero" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Campo para la fecha de nacimiento -->
+            <div class="form-group row mb-3">
+                <div class="col-4">
+                    <label asp-for="FechaNacimiento" class="form-label"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="FechaNacimiento" class="form-control" type="date" />
+                    <span asp-validation-for="FechaNacimiento" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Acciones: Botón de guardar cambios y volver atrás -->
+            <div class="row mt-4">
+                <div class="col">
+                    <button type="submit" class="btn btn-primary form-control">Guardar Cambios</button>
+                </div>
+                <div class="col">
+                    <a asp-action="Index" class="btn btn-secondary form-control">Volver Atrás</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Placeholder para la imagen, si la tuvieras -->
+        <div class="col-4 pt-3">
+            <!-- Aquí puedes incluir la imagen relacionada si tienes una propiedad para la imagen del paciente -->
+            @* <img src="@Model.UrlImagen" width="300px" style="border-radius:5px; border:1px solid #bbb9b9" /> *@
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.8.3/tinymce.min.js" integrity="sha512-VCEWnpOl7PIhbYMcb64pqGZYez41C2uws/M/mDdGPy+vtEJHd9BqbShE4/VNnnZdr7YCPOjd+CBmYca/7WWWCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            plugins: 'lists',
+            menubar: 'file edit format'
+        });
+    </script>
+}
