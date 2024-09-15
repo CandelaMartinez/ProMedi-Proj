@@ -18,6 +18,7 @@ namespace ProMedi.AccesoDatos.Data
 
         public DbSet<Carrousel> Carrouseles { get; set; }
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
+        public DbSet<Paciente> Pacientes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

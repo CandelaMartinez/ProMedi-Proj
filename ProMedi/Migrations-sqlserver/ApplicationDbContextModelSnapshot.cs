@@ -18,33 +18,34 @@ namespace ProMedi.AccesoDatos.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "8.0.2")
-                .HasAnnotation("Relational:MaxIdentifierLength", 64);
-
-            MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
+                .HasAnnotation("Relational:MaxIdentifierLength", 128)
+                .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                .HasAnnotation("SqlServer:IdentitySeed", 1L)
+                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .HasMaxLength(256)
-                        .HasColumnType("varchar(256)");
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("NormalizedName")
                         .HasMaxLength(256)
-                        .HasColumnType("varchar(256)");
+                        .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
-                        .HasDatabaseName("RoleNameIndex");
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
                 });
@@ -53,20 +54,20 @@ namespace ProMedi.AccesoDatos.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1L)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RoleId")
                         .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -79,20 +80,20 @@ namespace ProMedi.AccesoDatos.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1L)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -104,20 +105,17 @@ namespace ProMedi.AccesoDatos.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("varchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderKey")
-                        .HasMaxLength(128)
-                        .HasColumnType("varchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("LoginProvider", "ProviderKey");
 
@@ -129,12 +127,10 @@ namespace ProMedi.AccesoDatos.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("RoleId")
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("UserId", "RoleId");
 
@@ -146,19 +142,16 @@ namespace ProMedi.AccesoDatos.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("varchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(128)
-                        .HasColumnType("varchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
@@ -168,71 +161,70 @@ namespace ProMedi.AccesoDatos.Migrations
             modelBuilder.Entity("ProMedi.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
                     b.Property<string>("Ciudad")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Direccion")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
-                        .HasColumnType("varchar(256)");
+                        .HasColumnType("nvarchar(256)");
 
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("tinyint(1)");
+                    b.Property<ulong>("EmailConfirmed")
+                        .HasColumnType("bit");
 
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("tinyint(1)");
+                    b.Property<ulong>("LockoutEnabled")
+                        .HasColumnType("bit");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Nombre")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
-                        .HasColumnType("varchar(256)");
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256)
-                        .HasColumnType("varchar(256)");
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("Pais")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PasswordHash")
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("tinyint(1)");
+                    b.Property<ulong>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
 
                     b.Property<string>("SecurityStamp")
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("tinyint(1)");
+                    b.Property<ulong>("TwoFactorEnabled")
+                        .HasColumnType("bit");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
-                        .HasColumnType("varchar(256)");
+                        .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
 
@@ -241,7 +233,8 @@ namespace ProMedi.AccesoDatos.Migrations
 
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
-                        .HasDatabaseName("UserNameIndex");
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
                 });
@@ -250,109 +243,81 @@ namespace ProMedi.AccesoDatos.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1L)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<bool>("Estado")
-                        .HasColumnType("tinyint(1)");
+                    b.Property<ulong>("Estado")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Nombre")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UrlImagen")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Carrouseles");
+                    b.ToTable("Carrouseles", (string)null);
                 });
 
             modelBuilder.Entity("ProMedi.Models.Categoria", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1L)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("Orden")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categorias");
-                });
-
-            modelBuilder.Entity("ProMedi.Models.Paciente", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Apellidos")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<DateTime>("FechaNacimiento")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<bool>("IsArchived")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("Nombre")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Numero")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Pacientes");
+                    b.ToTable("Categorias", (string)null);
                 });
 
             modelBuilder.Entity("ProMedi.Models.Publicacion", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1L)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("CategoriaId")
                         .HasColumnType("int");
 
                     b.Property<string>("Descripcion")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FechaCreacion")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nombre")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UrlImagen")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CategoriaId");
 
-                    b.ToTable("Publicaciones");
+                    b.ToTable("Publicaciones", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -409,7 +374,7 @@ namespace ProMedi.AccesoDatos.Migrations
             modelBuilder.Entity("ProMedi.Models.Publicacion", b =>
                 {
                     b.HasOne("ProMedi.Models.Categoria", "Categoria")
-                        .WithMany("Publicaciones")
+                        .WithMany("Publicacions")
                         .HasForeignKey("CategoriaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -419,7 +384,7 @@ namespace ProMedi.AccesoDatos.Migrations
 
             modelBuilder.Entity("ProMedi.Models.Categoria", b =>
                 {
-                    b.Navigation("Publicaciones");
+                    b.Navigation("Publicacions");
                 });
 #pragma warning restore 612, 618
         }
