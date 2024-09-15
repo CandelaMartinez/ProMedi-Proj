@@ -1,0 +1,116 @@
+﻿@model ProMedi.Models.AnaliticaOrina
+
+@{
+    ViewData["Title"] = "Editar Analítica de Orina";
+}
+
+<br />
+<br />
+<h3 class="text-center">Editar Analítica de Orina</h3>
+
+<form method="POST" asp-action="Edit" enctype="multipart/form-data">
+    <!-- Campo oculto para el ID de la analítica -->
+    <input type="hidden" asp-for="Id" />
+    <!-- Campo oculto para el PacienteId -->
+    <input type="hidden" asp-for="PacienteId" />
+
+    <div class="row px-4 py-3 border">
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <div class="col-8 mt-4">
+            <!-- Campo para la fecha de la analítica -->
+            <div class="form-group row mb-3">
+                <div class="col-4">
+                    <label asp-for="Fecha" class="form-label"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Fecha" class="form-control" type="date" />
+                    <span asp-validation-for="Fecha" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Campo para los Leucositos -->
+            <div class="form-group row mb-3">
+                <div class="col-4">
+                    <label asp-for="Leucositos" class="form-label"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Leucositos" class="form-control" type="number" placeholder="Ingrese los Leucocitos" />
+                    <span asp-validation-for="Leucositos" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Campo para Nitrito -->
+            <div class="form-group row mb-3">
+                <div class="col-4">
+                    <label asp-for="Nitrito" class="form-label"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Nitrito" class="form-control" type="number" placeholder="Ingrese el Nitrito" />
+                    <span asp-validation-for="Nitrito" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Campo para Hemoglobina -->
+            <div class="form-group row mb-3">
+                <div class="col-4">
+                    <label asp-for="Hemoglobina" class="form-label"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Hemoglobina" class="form-control" type="number" placeholder="Ingrese la Hemoglobina" />
+                    <span asp-validation-for="Hemoglobina" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Campo para Proteina -->
+            <div class="form-group row mb-3">
+                <div class="col-4">
+                    <label asp-for="Proteina" class="form-label"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Proteina" class="form-control" type="number" placeholder="Ingrese la Proteina" />
+                    <span asp-validation-for="Proteina" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Campo para Creatinina -->
+            <div class="form-group row mb-3">
+                <div class="col-4">
+                    <label asp-for="Creatinina" class="form-label"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Creatinina" class="form-control" type="number" placeholder="Ingrese la Creatinina" />
+                    <span asp-validation-for="Creatinina" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Campo para Albumina -->
+            <div class="form-group row mb-3">
+                <div class="col-4">
+                    <label asp-for="Albumina" class="form-label"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Albumina" class="form-control" type="number" placeholder="Ingrese la Albumina" />
+                    <span asp-validation-for="Albumina" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Acciones: Botón de guardar cambios y volver atrás -->
+            <div class="row mt-4">
+                <div class="col">
+                    <button type="submit" class="btn btn-primary form-control">Guardar Cambios</button>
+                </div>
+                <div class="col">
+                    <a asp-action="Index" asp-route-pacienteId="@Model.PacienteId" class="btn btn-secondary form-control">Volver Atrás</a>
+                </div>
+            </div>
+        </div>
+
+  
+    </div>
+</form>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
+

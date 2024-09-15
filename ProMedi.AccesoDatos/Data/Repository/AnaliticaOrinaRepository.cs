@@ -30,6 +30,9 @@ namespace ProMedi.AccesoDatos.Data.Repository
             objToUpdate.Hemoglobina = analiticaOrina.Hemoglobina;
             objToUpdate.Proteina = analiticaOrina.Proteina;
             objToUpdate.Creatinina = analiticaOrina.Creatinina;
+            objToUpdate.Fecha = analiticaOrina.Fecha;
+            objToUpdate.PacienteId = analiticaOrina.PacienteId;
+            objToUpdate.Paciente = _context.Pacientes.Where(x => x.Id == analiticaOrina.PacienteId).FirstOrDefault();
         }
     }
 }

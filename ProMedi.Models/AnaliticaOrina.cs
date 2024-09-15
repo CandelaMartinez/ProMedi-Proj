@@ -12,6 +12,8 @@ namespace ProMedi.Models
     {
         [Key]
         public int Id { get; set; }
+        [Required(ErrorMessage = "La fecha es obligatoria.")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
         public DateTime Fecha { get; set; }
         public int? Leucositos { get; set; }
         public int? Nitrito { get; set; }
