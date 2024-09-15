@@ -16,6 +16,7 @@ namespace ProMedi.AccesoDatos.Data.Repository.IRepository
         ICarrouselRepository Carrousel { get; }
 
         IUsuarioRepository Usuario { get; }
+        IPacienteRepository Paciente { get; }
 
         //guarda los cambios que se realizen el a unidad de trabajo
         void Save();
