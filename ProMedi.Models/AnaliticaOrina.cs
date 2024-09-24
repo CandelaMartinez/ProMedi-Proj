@@ -27,6 +27,7 @@ namespace ProMedi.Models
 
         [ForeignKey("PacienteId")]
         public Paciente Paciente { get; set; }
+        public bool IsArchived { get; set; }
 
     }
 }
