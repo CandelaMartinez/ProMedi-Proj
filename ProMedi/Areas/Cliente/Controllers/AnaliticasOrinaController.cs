@@ -71,5 +71,44 @@ namespace ProMedi.Areas.Cliente.Controllers
             }
             return View(analiticaOrina);
         }
+
+
+        [HttpGet]
+        public IActionResult Archivar(int id, int pacienteId)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var analiticaOrina = _unitOfWork.AnaliticaOrina.Get(id);
+            if (analiticaOrina == null)
+            {
+                return NotFound();
+            }
+            analiticaOrina.IsArchived = true;
+
+            _unitOfWork.AnaliticaOrina.Update(analiticaOrina);
+            _unitOfWork.Save();
+            return RedirectToAction(nameof(Index), new {pacienteId = pacienteId});
+        }
+
+        [HttpGet]
+        public IActionResult Desarchivar(int id, int pacienteId)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var analiticaOrina = _unitOfWork.AnaliticaOrina.Get(id);
+            if (analiticaOrina == null)
+            {
+                return NotFound();
+            }
+            analiticaOrina.IsArchived = false;
+
+            _unitOfWork.AnaliticaOrina.Update(analiticaOrina);
+            _unitOfWork.Save();
+            return RedirectToAction(nameof(Index), new { pacienteId = pacienteId });
+        }
     }
 }
